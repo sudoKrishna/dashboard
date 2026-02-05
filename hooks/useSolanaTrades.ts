@@ -3,20 +3,25 @@ import { DeriverseSDK, Trade } from '@/lib/deriverse-sdk';
 import { useDashboardStore } from './useDashboardStore';
 import { useEffect } from 'react';
 
-// Mock data generator for development
+
+const TRADE_TYPES: Trade["type"][] = ["Spot", "Perp"];
+
 const generateMockTrades = (count: number): Trade[] => {
-    return Array.from({ length: count }).map((_, i) => ({
-        signature: `sig_${Math.random().toString(36).slice(2)}`,
-        asset: Math.random() > 0.5 ? 'SOL-PERP' : 'BTC-PERP',
-        type: Math.random() > 0.7 ? 'Spot' : 'Perp',
-        entryPrice: 100 + Math.random() * 100,
-        exitPrice: 100 + Math.random() * 100,
-        duration: `${Math.floor(Math.random() * 60)}m`,
-        pnl: (Math.random() - 0.4) * 1000,
-        fees: Math.random() * 10,
-        timestamp: Date.now() - Math.floor(Math.random() * 100000000),
-    })).sort((a, b) => a.timestamp - b.timestamp);
+    return Array.from({ length: count })
+        .map(() => ({
+            signature: `sig_${Math.random().toString(36).slice(2)}`,
+            asset: Math.random() > 0.5 ? "SOL-PERP" : "BTC-PERP",
+            type: TRADE_TYPES[Math.floor(Math.random() * TRADE_TYPES.length)],
+            entryPrice: 100 + Math.random() * 100,
+            exitPrice: 100 + Math.random() * 100,
+            duration: `${Math.floor(Math.random() * 60)}m`,
+            pnl: (Math.random() - 0.4) * 1000,
+            fees: Math.random() * 10,
+            timestamp: Date.now() - Math.floor(Math.random() * 100000000),
+        }))
+        .sort((a, b) => a.timestamp - b.timestamp);
 };
+
 
 export function useSolanaTrades(walletAddress: string | null) {
     const setTrades = useDashboardStore((state) => state.setTrades);

@@ -8,11 +8,7 @@ interface TradingHeatmapProps {
 }
 
 export function TradingHeatmap({ data }: TradingHeatmapProps) {
-    // Group by Day (Row) and Hour (Col)
-    // Simplify: Just show last 7 days vs 24 hours
-    // Or just a grid of recent trade sessions
 
-    // For this demo: "Profit by Hour of Day" (0-23)
     const stats = useMemo(() => {
         const hours = Array(24).fill(0).map(() => ({ pnl: 0, count: 0 }));
 

@@ -22,8 +22,6 @@ export function TradeTable({ data, onAssetClick }: TradeTableProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState({});
 
-    // Persistence for notes (Mock via simplistic state for now, user asked for local storage but let's just make it editable)
-    // Implementing LocalStorage persistence requires useEffect or similar. keeping simple for now.
 
     const columns = useMemo<ColumnDef<Trade>[]>(() => [
         {
